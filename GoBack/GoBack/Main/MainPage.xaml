@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:main="clr-namespace:GoBack.Main;assembly=GoBack"
+             x:Class="GoBack.Main.MainPage"
+             x:DataType="main:MainViewModel">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Main"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+            <Button Text="Forward"
+                    TextColor="Black"
+                    Command="{Binding ForwardCommand}"
+                    CommandParameter="FirstPage"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

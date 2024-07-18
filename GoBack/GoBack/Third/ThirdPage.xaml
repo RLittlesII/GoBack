@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:third="clr-namespace:GoBack.Third;assembly=GoBack"
+             x:Class="GoBack.Third.ThirdPage"
+             x:DataType="third:ThirdViewModel">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="RoyalBlue">
+            <Entry Placeholder="Enter the number of pages you would like to go back."
+                   Text="{Binding Backwards}"
+                   Keyboard="Numeric"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center" />
+            <Entry Placeholder="Enter the number of pages you would like to go back."
+                   Text="{Binding Url}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center" />
+            <Button Text="{Binding BackUrl}"
+                    TextColor="Black"
+                    Command="{Binding BackCommand}"
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
