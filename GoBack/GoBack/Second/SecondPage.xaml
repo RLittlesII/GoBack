@@ -17,6 +17,14 @@
                     CommandParameter="ThirdPage" 
                     VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"/>
+            
+            <Button Text="Second"
+                    TextColor="Black"
+                    Command="{Binding ModalCommand}"
+                    CommandParameter="SecondPage" 
+                    VerticalOptions="CenterAndExpand"
+                    HorizontalOptions="CenterAndExpand"/>
+
             <Button Text="Modal"
                     TextColor="Black"
                     Command="{Binding ModalCommand}"

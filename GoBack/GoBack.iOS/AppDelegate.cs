@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Foundation;
+﻿using Foundation;
+using Rg.Plugins.Popup;
+using Serilog;
 using UIKit;
 
 namespace GoBack.iOS
@@ -21,10 +20,17 @@ namespace GoBack.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Popup.Init();
+            ConfigureLogging();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private static void ConfigureLogging()
+        {
+            Log.Logger = new LoggerConfiguration().WriteTo.NSLog().CreateLogger();
         }
     }
 }

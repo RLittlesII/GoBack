@@ -1,10 +1,16 @@
-﻿using GoBack.First;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using DryIoc;
+using GoBack.First;
 using GoBack.Main;
 using GoBack.Second;
 using GoBack.Third;
 using Prism.DryIoc;
 using Prism.Ioc;
+using Prism.Logging;
 using Prism.Navigation;
+using Prism.Plugin.Popups;
+using Serilog;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,6 +39,14 @@ namespace GoBack
             containerRegistry.RegisterForNavigation<FirstPage, FirstViewModel>(nameof(FirstPage));
             containerRegistry.RegisterForNavigation<SecondPage, SecondViewModel>(nameof(SecondPage));
             containerRegistry.RegisterForNavigation<ThirdPage, ThirdViewModel>(nameof(ThirdPage));
+            containerRegistry.RegisterPopupNavigationService<CustomNavigationService>();
+
+            var container = Container.GetContainer();
+            container.Register<INavigationService, CustomNavigationService>(setup: SetupWith.ParentReuse,
+                ifAlreadyRegistered: IfAlreadyRegistered.Replace);
+            container.Register<INavigationService, CustomNavigationService>(setup: SetupWith.ParentReuse,
+                ifAlreadyRegistered: IfAlreadyRegistered.Replace, serviceKey: "PageNavigationService");
+            container.RegisterInstance<ILogger>(Log.Logger);
         }
 
         protected override void OnInitialized()
@@ -45,11 +59,30 @@ namespace GoBack
         {
             // Handle when your app resumes
         }
+
         private static void HandleFailedNavigationResult(INavigationResult result)
         {
             if (!result.Success)
             {
             }
         }
+    }
+
+    public static class SetupWith
+    {
+        /// <summary>
+        /// Ensures dependency resolution matches the parent reuse. Equivalent to <code>Setup.With(useParentReuse: true)</code>
+        /// </summary>
+        public static Setup ParentReuse => Setup.With(useParentReuse: true);
+
+        /// <summary>
+        /// Enables tracking of a disposable transient. Equivalent to <code> Setup.With(trackDisposableTransient: true)</code>
+        /// </summary>
+        public static Setup TrackDisposableTransient => Setup.With(trackDisposableTransient: true);
+
+        /// <summary>
+        /// Allows disposable transient registration. Equivalent to <code>Setup.With(allowDisposableTransient: true)</code>
+        /// </summary>
+        public static Setup AllowDisposableTransient => Setup.With(allowDisposableTransient: true);
     }
 }

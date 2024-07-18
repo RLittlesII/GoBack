@@ -109,6 +109,7 @@
         <Reference Include="Xamarin.iOS"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="Serilog.Sinks.Xamarin" Version="1.0.0" />
         <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />
     </ItemGroup>
     <ItemGroup>

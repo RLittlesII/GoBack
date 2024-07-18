@@ -2,14 +2,20 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Prism.Navigation;
 using ReactiveUI;
+using Serilog;
 
 namespace GoBack.Third
 {
     public class ThirdViewModel : ViewModelBase
     {
-        public ThirdViewModel(INavigationService navigationService) : base(navigationService)
+        public ThirdViewModel(INavigationService navigationService, ILogger logger) : base(navigationService, logger)
         {
-            BackCommand = ReactiveCommand.CreateFromTask(_ => navigationService.NavigateAsync(BackUrl, null, true, true));
+            BackCommand = ReactiveCommand.CreateFromTask(_ =>
+            {
+                logger.Information("Back: {Uri}", BackUrl);
+                return navigationService.NavigateAsync(BackUrl);
+                return navigationService.NavigateAsync(BackUrl, null, true, true); // NOTE: [rlittlesii: July 18, 2024] This has weird behavior.  It does the subsequent navigation as a Modal navigation.
+            });
 
             string CreateUri(int backwards)
             {
